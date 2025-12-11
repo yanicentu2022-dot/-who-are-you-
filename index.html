@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>¿Why are YOU here?</title>
+    <link rel="stylesheet" href="paradise.css">
+</head>
+<body>
+
+<div class="overlay-image"></div> <!-- Imagen encima del cronómetro -->
+
+<div id="countdown">000 • 00 • 00 • 00</div>
+<div id="final-message" class="hidden"> ¡ FELICIDADES, INICIAS UNA NUEVA ETAPA EN LA UNIVERSIDAD PARADISE W ! La hora de los eventos a iniciado. . . </div>
+<script>
+    // Fecha objetivo: hoy miércoles a las 21:24 + 4 días (hasta domingo misma hora)
+    const now = new Date();
+    const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 24, 0, 0);
+    target.setDate(target.getDate() + 4);
+
+    function updateCountdown() {
+        const nowTime = new Date().getTime();
+        const distance = target - nowTime;
+
+        if (distance < 0) {
+    document.getElementById("countdown").innerHTML = "000 • 00 • 00 • 00";
+
+    // Mostrar mensaje final
+    const msg = document.getElementById("final-message");
+    msg.classList.remove("hidden");
+    msg.classList.add("show");
+
+    return;
+}
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML =
+            String(days).padStart(3, "0") + " • " +
+            String(hours).padStart(2, "0") + " • " +
+            String(minutes).padStart(2, "0") + " • " +
+            String(seconds).padStart(2, "0");
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
